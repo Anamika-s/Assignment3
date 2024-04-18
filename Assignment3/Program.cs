@@ -6,15 +6,19 @@
         static List<Product> orders = new List<Product>();
         static void Main(string[] args)
         {
+            string userChoice = "y";
+            while(userChoice.Equals("y"))
+            {
+
+            Console.WriteLine("STart process");
            
             Console.WriteLine("Identfy yourself");
             string userType = Console.ReadLine();
-            switch (userType)
-            {
-                case "admin":
-                    {
-                        string c = "y";
+                switch (userType)
+                {
+                    case "admin":
                         {
+                            string c = "y";
                             while (c == "y")
                             {
                                 int choice = DisplayAdminMenu();
@@ -34,8 +38,6 @@
                                                 Console.WriteLine("Add more");
                                                 ch = Console.ReadLine();
                                             }
-                                            Console.WriteLine("Repeat");
-                                            c = Console.ReadLine();
                                             break;
                                         }
                                     case 2:
@@ -47,58 +49,61 @@
                                             }
                                             break;
                                         }
+
                                 }
+                                Console.WriteLine("Repeat");
+                                c = Console.ReadLine();
                             }
                             break;
                         }
 
-                    }
-                     
-                    
-                case "customer":
-                    {
-                        int choice = DisplayCustomerMenu();
-                         switch(choice)
+
+                    case "customer":
                         {
-                            case 1:
-                                {
-                                    string ch = "y";
-                                    while (ch == "y")
+                            int choice = DisplayCustomerMenu();
+                            switch (choice)
+                            {
+                                case 1:
+                                    {
+                                        string ch = "y";
+                                        while (ch == "y")
+                                        {
+                                            Console.WriteLine("Enter Prodcut name ");
+                                            string pName = Console.ReadLine();
+                                            Product product = SearchProduct(pName);
+                                            if (product != null)
+                                            {
+                                                orders.Add(product);
+                                            }
+                                            Console.WriteLine("Wnt to order more product?")
+                                                ;
+                                            ch = Console.ReadLine();
+                                        }
+
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        foreach (Product product in orders)
+                                        { product.DisplayProducts(); }
+
+                                        break;
+                                    }
+                                case 3:
                                     {
                                         Console.WriteLine("Enter Prodcut name ");
                                         string pName = Console.ReadLine();
-                                        Product product = SearchProduct(pName);
-                                        if (product != null)
-                                        {
-                                            orders.Add(product);
-                                        }
-                                        Console.WriteLine("Wnt to order more product?")
-                                            ;
-                                        ch = Console.ReadLine();
+                                        var product = SearchProduct(pName);
+                                        product.DisplayProducts();
+                                        break;
                                     }
-                                    
-                                    break;
-                                }
-                                case 2:
-                                {
-                                    foreach(Product product in orders)
-                                    { product.DisplayProducts(); }
-
-                                    break;
-                                }
-                                case 3:
-                                {
-                                    Console.WriteLine("Enter Prodcut name ");
-                                    string pName = Console.ReadLine();
-                                    Product product = SearchProduct(pName);
-                                    product.DisplayProducts();
-                                    break;
-                                }
+                            }
+                            break;
                         }
-                        break;
-                    }
-            
 
+                        Console.WriteLine("Start again");
+                        userChoice = Console.ReadLine();
+                }
             }
         }
         
@@ -127,7 +132,7 @@
                 if(product.pname == name)
                 {
                     return temp;
-                    break;
+
                 }
             }
             return product; 
